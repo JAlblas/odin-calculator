@@ -2,8 +2,8 @@ let displayText = document.querySelector('#display p');
 
 let displayValue = 0;
 let operator = "";
-let firstNumber = null;
-let secondNumber = null;
+let resultValue = null;
+//let secondNumber = null;
 
 let updateDisplay = (value) => {
     displayText.textContent = value;
@@ -12,58 +12,68 @@ let updateDisplay = (value) => {
 numericButtons = document.querySelectorAll('.number');
 numericButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        if (displayValue == 0) {
+        if (displayValue == 0 || resultValue != null) {
             displayValue = button.textContent;
         } else if (displayValue == null) {
             displayValue = button.textContent;
         } else {
             displayValue += button.textContent;
-
-
-
-
         }
         updateDisplay(displayValue);
     })
 });
 
-operatorButtons = document.querySelectorAll('.operator');
+const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        console.log(firstNumber)
-        if (firstNumber == null) {
 
-            firstNumber = parseFloat(displayText.textContent);
-            displayValue = 0;
-            //displayText.textContent = "";
-            operator = button.textContent;
-        } else {
+        console.log("displayValue", displayValue);
+        console.log("operator", operator);
+        console.log("number result", resultValue);
+
+        if (button.textContent === "=") {
             secondNumber = parseFloat(displayText.textContent);
-            operator = button.textContent;
-            operate(operator, firstNumber, secondNumber);
+
+            let result = operate(operator, resultValue, displayValue);
+
+            console.log(operator);
+            console.log(1);
+
+            updateDisplay(result);
+
+            //displayValue = result;
+            resultValue = result;
         }
 
+        else if (resultValue === null) {
+            console.log(2);
+            resultValue = parseFloat(displayText.textContent);
+            operator = button.textContent;
 
-    })
-})
+        }
+        else {
+            console.log(33333);
+            displayValue = parseFloat(displayText.textContent);
+            operator = button.textContent;
 
-equalButton = document.querySelector("#equal");
-equalButton.addEventListener("click", () => {
-    secondNumber = parseFloat(displayText.textContent);
+            //let result = operate(operator, resultValue, displayValue);
+            //displayText.textContent = result;
 
-    let result = operate(operator, firstNumber, secondNumber);
+        }
 
-    updateDisplay(result);
-    firstNumber = result;
-})
+        console.log("displayValue", displayValue);
+        console.log("operator", operator);
+        console.log("number result", resultValue);
+    });
+});
 
 let clear = document.querySelector('#clear');
 clear.addEventListener("click", () => {
     updateDisplay('');
     displayValue = 0;
     operator = "";
-    firstNumber = false;
-    secondNumber = false;
+    resultValue = null;
+    displayText.textContent = "0";
 })
 
 
@@ -73,6 +83,7 @@ let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
 
 let operate = (operator, num1, num2) => {
+    console.log(operator, num1, num2);
     switch (operator) {
         case "+":
             return add(num1, num2);
@@ -83,7 +94,7 @@ let operate = (operator, num1, num2) => {
         case "x":
             return multiply(num1, num2);
             break;
-        case "/":
+        case "%":
             return divide(num1, num2);
             break;
         default:

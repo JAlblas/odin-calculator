@@ -15,19 +15,20 @@ body {
     background-color: grey;
     border-radius: 10px;
     background-color: #C794AF;
+    border: 1px solid #010101;
 }
 
 #display {
     background-color: #828081;
     flex-grow: 1;
     height: 75px;
-    border: 1px solid #000;
+    border: 1px solid #00000035;
     text-align: right;
     border-radius: 15px;
 }
 
 #display p {
-    padding-right: 10px;
+    padding-right: 15px;
     font-size: 40px;
     margin: 15px 0 0 0px;
     ;
@@ -48,11 +49,16 @@ body {
 .button {
     padding: 20px;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 90px;
     background-color: #FFF;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bold;
     flex-basis: 60px;
     text-align: center;
+}
+
+.button.operator {
+    background-color: rgb(208, 91, 148);
 }
 
 .button:hover {
