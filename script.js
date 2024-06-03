@@ -1,7 +1,7 @@
 let displayText = document.querySelector('#display p');
 
 let displayValue = 0;
-let operator = "";
+let operator = null;
 let resultValue = null;
 //let secondNumber = null;
 
@@ -30,11 +30,19 @@ operatorButtons.forEach(button => {
         console.log("displayValue", displayValue);
         console.log("operator", operator);
         console.log("number result", resultValue);
+        let result = 0;
 
         if (button.textContent === "=") {
-            secondNumber = parseFloat(displayText.textContent);
+            displayValue = parseFloat(displayText.textContent);
+            console.log("THIS")
+            console.log(operator);
+            if (operator == null) {
+                result = displayValue;
+            } else {
+                result = operate(operator, resultValue, displayValue);
+            }
 
-            let result = operate(operator, resultValue, displayValue);
+
 
             console.log(operator);
             console.log(1);
@@ -56,22 +64,22 @@ operatorButtons.forEach(button => {
             displayValue = parseFloat(displayText.textContent);
             operator = button.textContent;
 
-            //let result = operate(operator, resultValue, displayValue);
+            let result = operate(operator, resultValue, displayValue);
             //displayText.textContent = result;
 
         }
 
         console.log("displayValue", displayValue);
-        console.log("operator", operator);
+        console.log("operator is:", operator);
         console.log("number result", resultValue);
     });
 });
 
-let clear = document.querySelector('#clear');
+let clear = document.querySelector('.clear');
 clear.addEventListener("click", () => {
     updateDisplay('');
     displayValue = 0;
-    operator = "";
+    operator = null;
     resultValue = null;
     displayText.textContent = "0";
 })
@@ -83,7 +91,7 @@ let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
 
 let operate = (operator, num1, num2) => {
-    console.log(operator, num1, num2);
+    console.log("OPERATIR", operator, num1, num2);
     switch (operator) {
         case "+":
             return add(num1, num2);

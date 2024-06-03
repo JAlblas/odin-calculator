@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
+    background-color: rgb(248, 225, 245);
 }
 
 #calculator {
@@ -63,8 +64,13 @@ body {
 
 .button:hover {
     background-color: #bdb6b6;
+    cursor: pointer;
 }
 
 #equal {
     flex-grow: 1.5;
+}
+
+.clear {
+    background-color: #af1065;
 }
