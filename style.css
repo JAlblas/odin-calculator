@@ -12,7 +12,7 @@ body {
 
 #calculator {
     width: 500px;
-    padding: 50px;
+    padding: 40px;
     background-color: grey;
     border-radius: 10px;
     background-color: #C794AF;
@@ -26,6 +26,7 @@ body {
     border: 1px solid #00000035;
     text-align: right;
     border-radius: 15px;
+    margin-bottom: 40px;
 }
 
 #display p {
@@ -71,6 +72,11 @@ body {
     flex-grow: 1.5;
 }
 
-.clear {
+.clear,
+.backspace {
     background-color: #af1065;
+}
+
+.backspace {
+    flex-grow: 1;
 }

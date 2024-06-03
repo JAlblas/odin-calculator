@@ -6,7 +6,7 @@ let resultValue = null;
 //let secondNumber = null;
 
 let updateDisplay = (value) => {
-    displayText.textContent = value;
+    displayText.textContent = parseFloat(value).toFixed(10);
 }
 
 numericButtons = document.querySelectorAll('.number');
@@ -42,8 +42,6 @@ operatorButtons.forEach(button => {
                 result = operate(operator, resultValue, displayValue);
             }
 
-
-
             console.log(operator);
             console.log(1);
 
@@ -65,7 +63,6 @@ operatorButtons.forEach(button => {
             operator = button.textContent;
 
             let result = operate(operator, resultValue, displayValue);
-            //displayText.textContent = result;
 
         }
 
