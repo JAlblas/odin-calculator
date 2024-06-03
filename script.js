@@ -1,3 +1,7 @@
+// BACKSPACE
+// DECIMALS
+// BUGS
+
 let displayText = document.querySelector('#display p');
 
 let displayValue = 0;
@@ -6,7 +10,6 @@ let resultValue = null;
 //let secondNumber = null;
 
 let updateDisplay = (value) => {
-    console.log("1234667", value)
     if (value == null) {
         displayText.textContent = "YOU FAIL";
         return;
@@ -27,8 +30,9 @@ numericButtons = document.querySelectorAll('.number');
 numericButtons.forEach(button => {
     button.addEventListener("click", (e) => {
         if (operator == null) {
-            resultValue = button.textContent;
-            displayValue = button.textContent;
+            //resultValue = button.textContent;
+            displayValue = displayValue += button.textContent;
+
         }
         else if (displayValue == 0 || resultValue != null) {
             displayValue = button.textContent;
@@ -91,6 +95,12 @@ clear.addEventListener("click", () => {
     operator = null;
     resultValue = null;
     displayText.textContent = "0";
+})
+
+let backspace = document.querySelector('.backspace');
+backspace.addEventListener("click", () => {
+    console.log("IS THIS RUN?")
+    displayText.textContent = displayText.textContent.substring(0, displayText.textContent.length - 1);
 })
 
 
