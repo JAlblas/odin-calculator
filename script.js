@@ -6,8 +6,11 @@ let resultValue = null;
 //let secondNumber = null;
 
 let updateDisplay = (value) => {
-
-
+    console.log("1234667", value)
+    if (value == null) {
+        displayText.textContent = "YOU FAIL";
+        return;
+    }
     let num = parseFloat(value);
     let formattedNumber;
     if (Number.isInteger(num)) {
@@ -24,7 +27,8 @@ numericButtons = document.querySelectorAll('.number');
 numericButtons.forEach(button => {
     button.addEventListener("click", (e) => {
         if (operator == null) {
-            resultValue = button.textContent;;
+            resultValue = button.textContent;
+            displayValue = button.textContent;
         }
         else if (displayValue == 0 || resultValue != null) {
             displayValue = button.textContent;
@@ -51,9 +55,6 @@ operatorButtons.forEach(button => {
             } else {
                 result = operate(operator, resultValue, displayValue);
             }
-
-            console.log(operator);
-            console.log(1);
 
             updateDisplay(result);
 
@@ -111,6 +112,7 @@ let operate = (operator, num1, num2) => {
             return multiply(num1, num2);
             break;
         case "%":
+            if (num2 === 0) { return null; break; };
             return divide(num1, num2);
             break;
         default:
