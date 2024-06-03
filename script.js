@@ -6,13 +6,27 @@ let resultValue = null;
 //let secondNumber = null;
 
 let updateDisplay = (value) => {
-    displayText.textContent = parseFloat(value).toFixed(10);
+
+
+    let num = parseFloat(value);
+    let formattedNumber;
+    if (Number.isInteger(num)) {
+        formattedNumber = num.toString();
+    } else {
+        formattedNumber = num.toFixed(10).replace(/\.?0+$/, '');
+    }
+
+    displayText.textContent = formattedNumber;
+
 }
 
 numericButtons = document.querySelectorAll('.number');
 numericButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        if (displayValue == 0 || resultValue != null) {
+        if (operator == null) {
+            resultValue = button.textContent;;
+        }
+        else if (displayValue == 0 || resultValue != null) {
             displayValue = button.textContent;
         } else if (displayValue == null) {
             displayValue = button.textContent;
@@ -26,10 +40,6 @@ numericButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-
-        console.log("displayValue", displayValue);
-        console.log("operator", operator);
-        console.log("number result", resultValue);
         let result = 0;
 
         if (button.textContent === "=") {
@@ -47,8 +57,9 @@ operatorButtons.forEach(button => {
 
             updateDisplay(result);
 
-            //displayValue = result;
             resultValue = result;
+            operator = null;
+            displayValue = 0;
         }
 
         else if (resultValue === null) {
