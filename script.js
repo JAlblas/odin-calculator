@@ -78,8 +78,14 @@ clear.addEventListener("click", () => {
 let backspace = document.querySelector('.backspace');
 backspace.addEventListener("click", () => {
     let newString = displayText.textContent.substring(0, displayText.textContent.length - 1);
-    displayValue = newString;
     updateDisplay(newString);
+
+    if (resultValue === null) {
+        displayValue = newString;
+    } else {
+        resultValue = newString;
+    }
+
 })
 
 let decimal = document.querySelector('.decimal');
