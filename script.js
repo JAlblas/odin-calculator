@@ -1,13 +1,7 @@
-// BACKSPACE
-// DECIMALS
-// BUGS
-
 let displayText = document.querySelector('#display p');
-
 let displayValue = 0;
 let operator = null;
 let resultValue = null;
-//let secondNumber = null;
 
 let updateDisplay = (value) => {
     if (value == null) {
@@ -29,16 +23,11 @@ let updateDisplay = (value) => {
 numericButtons = document.querySelectorAll('.number');
 numericButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        if (operator == null) {
-            //resultValue = button.textContent;
-            displayValue = displayValue += button.textContent;
-
+        if (displayValue == 0) {
+            displayValue = button.textContent;
         }
-        else if (displayValue == 0 || resultValue != null) {
-            displayValue = button.textContent;
-        } else if (displayValue == null) {
-            displayValue = button.textContent;
-        } else {
+
+        else {
             displayValue += button.textContent;
         }
         updateDisplay(displayValue);
@@ -52,8 +41,7 @@ operatorButtons.forEach(button => {
 
         if (button.textContent === "=") {
             displayValue = parseFloat(displayText.textContent);
-            console.log("THIS")
-            console.log(operator);
+
             if (operator == null) {
                 result = displayValue;
             } else {
@@ -68,23 +56,13 @@ operatorButtons.forEach(button => {
         }
 
         else if (resultValue === null) {
-            console.log(2);
             resultValue = parseFloat(displayText.textContent);
             operator = button.textContent;
-
+            displayValue = 0
         }
         else {
-            console.log(33333);
-            displayValue = parseFloat(displayText.textContent);
             operator = button.textContent;
-
-            let result = operate(operator, resultValue, displayValue);
-
         }
-
-        console.log("displayValue", displayValue);
-        console.log("operator is:", operator);
-        console.log("number result", resultValue);
     });
 });
 
@@ -99,10 +77,16 @@ clear.addEventListener("click", () => {
 
 let backspace = document.querySelector('.backspace');
 backspace.addEventListener("click", () => {
-    console.log("IS THIS RUN?")
-    displayText.textContent = displayText.textContent.substring(0, displayText.textContent.length - 1);
+    let newString = displayText.textContent.substring(0, displayText.textContent.length - 1);
+    displayValue = newString;
+    updateDisplay(newString);
 })
 
+let decimal = document.querySelector('.decimal');
+decimal.addEventListener("click", () => {
+    displayValue += '.';
+    updateDisplay(displayValue);
+})
 
 let add = (a, b) => a + b;
 let substract = (a, b) => a - b;
@@ -110,7 +94,7 @@ let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
 
 let operate = (operator, num1, num2) => {
-    console.log("OPERATIR", operator, num1, num2);
+    console.log(operator, num1, num2);
     switch (operator) {
         case "+":
             return add(num1, num2);
