@@ -5,45 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="script.js" defer></script>
     <title>Calculator</title>
 </head>
 
 <body>
     <div id="calculator">
-        <div id="digits">
+        <div id="buttons">
             <div class="digit-row">
                 <div id="display">
                     <p>0</p>
                 </div>
             </div>
             <div class="digit-row">
-                <div class="button clear">AC</div>
-                <div class="button backspace">Backspace</div>
+                <div class="button clear" id="AC">AC</div>
+                <div class="button backspace" id="backspace">Backspace</div>
             </div>
             <div class="digit-row">
-                <div class="button number">7</div>
-                <div class="button number">8</div>
-                <div class="button number">9</div>
-                <div class="button operator">%</div>
+                <div class="button number" id="7">7</div>
+                <div class="button number" id="8">8</div>
+                <div class="button number" id="9">9</div>
+                <div class="button operator" id="divide">%</div>
             </div>
             <div class="digit-row">
-                <div class="button number" id="four">4</div>
-                <div class="button number" id="five">5</div>
-                <div class="button number" id="six">6</div>
-                <div class="button operator">x</div>
+                <div class="button number" id="4">4</div>
+                <div class="button number" id="5">5</div>
+                <div class="button number" id="6">6</div>
+                <div class="button operator" id="multiply">x</div>
             </div>
             <div class="digit-row">
-                <div class="button number">1</div>
-                <div class="button number">2</div>
-                <div class="button number">3</div>
-                <div class="button operator">-</div>
+                <div class="button number" id="1">1</div>
+                <div class="button number" id="2">2</div>
+                <div class="button number" id="3">3</div>
+                <div class="button operator" id="minus">-</div>
             </div>
             <div class="digit-row">
-                <div class="button number" id="zero">0</div>
-                <div class="button decimal">.</div>
+                <div class="button number" id="0">0</div>
+                <div class="button decimal" id="decimal">.</div>
                 <div class="button operator" id="equal">=</div>
-                <div class="button operator" id="">+</div>
+                <div class="button operator" id="plus">+</div>
             </div>
         </div>
 
