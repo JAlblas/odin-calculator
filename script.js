@@ -6,7 +6,6 @@ let num1 = null;
 let num2 = null;
 
 function handleNumber(digit) {
-  console.log("handling number");
   if (operator === null) {
     // build num1
     num1 = num1 === null ? digit : num1 + digit;
@@ -22,6 +21,7 @@ function handleNumber(digit) {
 
 function handleOperator(op) {
   if (num1 === null) return; // nothing to operate on
+
   // If user chains operations (2 + 3 + 4)
   if (num2 !== null) {
     calculate(num1, operator, num2);
@@ -29,18 +29,43 @@ function handleOperator(op) {
   operator = op;
 }
 
+function handleBackspace() {
+  // Decide which value we are editing
+  if (operator === null) {
+    num1 = removeLastChar(num1);
+    displayValue = num1 ?? "0";
+  } else {
+    num2 = removeLastChar(num2);
+    displayValue = num2 ?? "0";
+  }
+
+  updateDisplay(displayValue);
+}
+
+function addDecimal() {
+  if (operator === null) {
+    if (num1.includes(".")) return;
+    num1 = num1 === null ? "0." : num1 + ".";
+    displayValue = num1;
+  } else {
+    if (num2.includes(".")) return;
+    num2 = num2 === null ? "0." : num2 + ".";
+    displayValue = num2;
+  }
+
+  updateDisplay(displayValue);
+}
+
 let add = (a, b) => a + b;
 let substract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
 let divide = (a, b) => a / b;
 
-let calculate = (num1, operator, num2) => {
-  console.log("calculate");
-  console.log(num1, operator, num2);
-  if (num1 === null || operator === null || num2 === null) return;
+let calculate = (digit1, operator, digit2) => {
+  if (digit1 === null || operator === null || digit2 === null) return;
 
-  const a = Number(num1);
-  const b = Number(num2);
+  const a = Number(digit1);
+  const b = Number(digit2);
 
   let result;
   switch (operator) {
@@ -60,8 +85,6 @@ let calculate = (num1, operator, num2) => {
 
   displayValue = String(result);
 
-  console.log(displayValue);
-
   // Prepare for next calculation
   num1 = displayValue;
   num2 = null;
@@ -71,70 +94,37 @@ let calculate = (num1, operator, num2) => {
 };
 
 let updateDisplay = (value) => {
-  /*
-  if (value == null) {
-    //displayText.textContent = "YOU FAIL";
-    return;
-  }
-  let num = parseFloat(value);
-  let formattedNumber;
-  if (Number.isInteger(num)) {
-    formattedNumber = num.toString();
-  } else {
-    formattedNumber = num.toFixed(10).replace(/\.?0+$/, "");
-  }
-
-  displayText.textContent = formattedNumber;
-  */
   displayText.textContent = value;
 };
 
 function resetCalculator() {
-  updateDisplay("");
-  displayValue = 0;
+  num1 = null;
+  num2 = null;
   operator = null;
-  resultValue = null;
-  displayText.textContent = "0";
+  displayValue = "0";
+  updateDisplay("");
+}
+
+function removeLastChar(value) {
+  if (!value || value.length <= 1) {
+    return null;
+  }
+  return value.slice(0, -1);
 }
 
 buttons = document.querySelector("#buttons");
 buttons.addEventListener("click", (e) => {
-  console.log(e.target.id);
   if (e.target.classList.contains("number")) {
-    console.log("number pressed");
     handleNumber(e.target.id);
   } else if (e.target.classList.contains("operator")) {
-    console.log("operator pressed");
     handleOperator(e.target.id);
+  } else if (e.target.classList.contains("equals")) {
+    calculate(num1, operator, num2);
   } else if (e.target.classList.contains("clear")) {
-    console.log("clear pressed");
     resetCalculator();
   } else if (e.target.classList.contains("backspace")) {
-    console.log("backspace pressed");
-    // TODO
+    handleBackspace();
   } else if (e.target.classList.contains("decimal")) {
-    console.log("decimal pressed");
-    // TODO
+    addDecimal();
   }
-});
-
-let backspace = document.querySelector(".backspace");
-backspace.addEventListener("click", () => {
-  let newString = displayText.textContent.substring(
-    0,
-    displayText.textContent.length - 1
-  );
-  updateDisplay(newString);
-
-  if (resultValue === null) {
-    displayValue = newString;
-  } else {
-    resultValue = newString;
-  }
-});
-
-let decimal = document.querySelector(".decimal");
-decimal.addEventListener("click", () => {
-  displayValue += ".";
-  updateDisplay(displayValue);
 });
